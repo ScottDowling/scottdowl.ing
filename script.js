@@ -1,5 +1,5 @@
 // Smooth scrolling for nav links
-document.querySelectorAll('.navbar a').forEach(anchor => {
+document.querySelectorAll('.nav-menu a').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
@@ -11,13 +11,27 @@ document.querySelectorAll('.navbar a').forEach(anchor => {
 
 // Theme toggle
 const toggleBtn = document.getElementById('theme-toggle');
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-theme');
-  document.body.classList.toggle('light-theme');
+if (toggleBtn) {
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    document.body.classList.toggle('light-theme');
 
-  if (document.body.classList.contains('dark-theme')) {
-    toggleBtn.textContent = "☀️ Light Mode";
-  } else {
-    toggleBtn.textContent = "🌙 Dark Mode";
-  }
-});
+    toggleBtn.textContent = document.body.classList.contains('dark-theme')
+      ? '☀️ Light Mode'
+      : '🌙 Dark Mode';
+  });
+}
+
+// Force resume download
+const resumeLink = document.getElementById('resume-download');
+if (resumeLink) {
+  resumeLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    const link = document.createElement('a');
+    link.href = 'resume.pdf'; // ensure file path is correct
+    link.download = 'Scott_Dowling_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+}
