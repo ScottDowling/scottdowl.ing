@@ -1,22 +1,23 @@
-// Minimal JS: copy email to clipboard and set current year
-document.addEventListener('DOMContentLoaded', function(){
-  var copyBtn = document.getElementById('emailCopy');
-  if(copyBtn){
-    copyBtn.addEventListener('click', function(){
-      var email = 'scott@scottdowl.ing';
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(email).then(function(){
-          copyBtn.textContent = 'Copied ✓';
-          setTimeout(function(){ copyBtn.textContent = 'Copy email'; }, 2000);
-        });
-      } else {
-        // fallback
-        var ta = document.createElement('textarea'); ta.value = email; document.body.appendChild(ta); ta.select();
-        try{ document.execCommand('copy'); copyBtn.textContent = 'Copied ✓'; }catch(e){};
-        ta.remove(); setTimeout(function(){ copyBtn.textContent = 'Copy email'; }, 2000);
-      }
-    });
-  }
+// Smooth scrolling for nav links
+document.querySelectorAll('.navbar a').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
 
-  var y = document.getElementById('year'); if(y) y.textContent = new Date().getFullYear();
+// Theme toggle
+const toggleBtn = document.getElementById('theme-toggle');
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme');
+  document.body.classList.toggle('light-theme');
+
+  if (document.body.classList.contains('dark-theme')) {
+    toggleBtn.textContent = "☀️ Light Mode";
+  } else {
+    toggleBtn.textContent = "🌙 Dark Mode";
+  }
 });
